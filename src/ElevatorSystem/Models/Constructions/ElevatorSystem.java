@@ -13,12 +13,12 @@ import java.util.concurrent.TimeUnit;
 public class ElevatorSystem implements Observer {
     private ArrayList<Elevator> elevators;
     private ArrayList<BuildingFloor> buildingFloors;
-    double elevatorsSpeed;
+    private double elevatorsSpeed;
 
     public  ElevatorSystem(int elevators,double elevatorsSpeed, ArrayList<BuildingFloor> buildingFloors){
         this.setElevators(new ArrayList<>(elevators));
         this.setBuildingFloors(buildingFloors);
-        this.elevatorsSpeed=elevatorsSpeed;
+        this.setElevatorsSpeed(elevatorsSpeed);
         for(BuildingFloor floor:getBuildingFloors())
             floor.addObserver(this);
         for(int i=0;i<elevators;i++)
@@ -28,7 +28,7 @@ public class ElevatorSystem implements Observer {
     }
 
 
-    private void findElevatorToServe(BuildingFloor buildingFloor, Direction direction) throws InterruptedException {
+    public int findElevatorToServe(BuildingFloor buildingFloor, Direction direction) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(getElevators().size());
         for(Elevator elevator: getElevators()){
             elevator.setTmpFloor(buildingFloor);
@@ -46,6 +46,7 @@ public class ElevatorSystem implements Observer {
         }
 
         selectedElevator.serveNewFloor(buildingFloor);
+        return selectedElevator.getSteps();
     }
 
     public ArrayList<Elevator> getElevators() {
@@ -75,5 +76,13 @@ public class ElevatorSystem implements Observer {
 
     public void setBuildingFloors(ArrayList<BuildingFloor> buildingFloors) {
         this.buildingFloors = buildingFloors;
+    }
+
+    public double getElevatorsSpeed() {
+        return elevatorsSpeed;
+    }
+
+    public void setElevatorsSpeed(double elevatorsSpeed) {
+        this.elevatorsSpeed = elevatorsSpeed;
     }
 }

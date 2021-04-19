@@ -14,10 +14,11 @@
     </li>
     <h2><li>Uruchomienie</h2>
     <p>Niestety na kapryśność wykorzystanej przeze mnie biblioteki JavaFx i jej brak natywnego wsparcia przez najnowsze odmiany JDK np.15, nie udało mi sie skonstruować stabilnego kontenera dockerowego, co więcej wymagałoby to też instalacji zewnętrzengo programu tj. XLanuch, do obsługi wyświetlania interfejsu okienkowego.</p>
-    <p>Zalecane jest uruchomienie skompilowanego pliku .jar znajdujacego się w katalogu: ElevatorSystem/out/artifacts/ElevatorSystem/ElevatorSystem.jar poleceniem `java -jar ElevatorSystem.jar` **UWAGA** metoda ta działa wyłącznie dla Javy 8, które natywnie wspiera pakiet JavaFx. Dla nowszych dystrybucji niezbędne będzie pobranie biblioteki JavaFx dla odpowiedniego systemu operacyjnego: [JavaFX](https://gluonhq.com/products/javafx/), a następnie uruchomienie programu przy pomocy następującej komendy: `java --module-path path/to/javafx --add-modules javafx.controls -jar ElevatorSystem.jar` dla systemu Linux oraz `java --module-path "path\to\javafx" --add-modules javafx.controls -jar ElevatorSystem.jar` dla systemu Windows. </p>
+    <p>Zalecane jest uruchomienie skompilowanego pliku .jar znajdujacego się w katalogu: ElevatorSystem/out/artifacts/ElevatorSystem/ElevatorSystem.jar poleceniem ```java -jar ElevatorSystem.jar```` **UWAGA** metoda ta działa wyłącznie dla Javy 8, które natywnie wspiera pakiet JavaFx. Dla nowszych dystrybucji niezbędne będzie pobranie biblioteki JavaFx dla odpowiedniego systemu operacyjnego: [JavaFX](https://gluonhq.com/products/javafx/), a następnie uruchomienie programu przy pomocy następującej komendy: ```java --module-path path/to/javafx --add-modules javafx.controls -jar ElevatorSystem.jar``` dla systemu Linux oraz ```java --module-path "path\to\javafx" --add-modules javafx.controls -jar ElevatorSystem.jar``` dla systemu Windows. </p>
     </li>
     <h2><li>Uwagi</h2>
     <p>Przedstawione rozwiązanie nie jest w pełni gotowe, zdarzają się nieliczne błędy, aczkolwiek w 100% oddaje idee i schemat działania. W razie wszelkich problemów proszę o kontak indywidualny.</p>
     </li>
 </ol>
+
 

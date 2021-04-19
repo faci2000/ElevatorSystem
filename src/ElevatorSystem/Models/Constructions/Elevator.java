@@ -23,10 +23,10 @@ public class Elevator implements  Runnable {
     private ElevatorView view;
     private double elevatorSpeed;
     private ArrayList<BuildingFloor> buildingFloors;
-    Simulation simulation;
+    private Simulation simulation;
 
 
-    public Elevator(int capacity, BuildingFloor startingBuildingFloor, int elevatorNo, double elevatorSpeed, ArrayList<BuildingFloor> buildingFloors, Simulation simulation){
+    public Elevator(int capacity, BuildingFloor startingBuildingFloor, int elevatorNo, double elevatorSpeed, ArrayList<BuildingFloor> buildingFloors){
         setCurrentFloor(startingBuildingFloor);
         this.setElevatorNo(elevatorNo);
         this.setCapacity(capacity);
@@ -34,8 +34,7 @@ public class Elevator implements  Runnable {
         this.setElevatorSpeed(elevatorSpeed);
         this.setFloorsToServeSystem(new FloorsQueue(this));
         setDirection(Direction.NONE);
-        this.simulation = simulation;
-        this.buildingFloors=buildingFloors;
+        this.setBuildingFloors(buildingFloors);
     }
 
     public int[] getStatus(){
@@ -80,7 +79,7 @@ public class Elevator implements  Runnable {
 
     public void run(){
         this.setSteps(getStepsToFloor(getTmpFloor()));
-        System.out.println("Elevator no:"+ this.elevatorNo + "->" + steps);
+        System.out.println("Elevator no:"+ this.getElevatorNo() + "->" + getSteps());
     }
 
     public void serveNewFloor(BuildingFloor floor){
@@ -93,7 +92,7 @@ public class Elevator implements  Runnable {
 
     public void popPeopleFromElevator(int floorNo){
         //System.out.println("Elevator no:"+getElevatorNo()+" on floor:"+floorNo+"-> "+getView().getY());
-        setCurrentFloor(buildingFloors.stream()
+        setCurrentFloor(getBuildingFloors().stream()
                                         .filter(floor -> floorNo==floor.getFloorNo())
                                         .findFirst()
                                         .get());
@@ -134,11 +133,11 @@ public class Elevator implements  Runnable {
     }
 
     public BuildingFloor getCurrentFloor() {
-        return currentBuildingFloor;
+        return getCurrentBuildingFloor();
     }
 
     public void setCurrentFloor(BuildingFloor currentBuildingFloor) {
-        this.currentBuildingFloor = currentBuildingFloor;
+        this.setCurrentBuildingFloor(currentBuildingFloor);
     }
 
     public BuildingFloor getTmpFloor() {
@@ -187,5 +186,37 @@ public class Elevator implements  Runnable {
 
     public void setFloorsToServeSystem(FloorsQueue floorsToServeSystem) {
         this.floorsToServeSystem = floorsToServeSystem;
+    }
+
+    public FloorsQueue getFloorsToServePeople() {
+        return floorsToServePeople;
+    }
+
+    public void setFloorsToServePeople(FloorsQueue floorsToServePeople) {
+        this.floorsToServePeople = floorsToServePeople;
+    }
+
+    public BuildingFloor getCurrentBuildingFloor() {
+        return currentBuildingFloor;
+    }
+
+    public void setCurrentBuildingFloor(BuildingFloor currentBuildingFloor) {
+        this.currentBuildingFloor = currentBuildingFloor;
+    }
+
+    public ArrayList<BuildingFloor> getBuildingFloors() {
+        return buildingFloors;
+    }
+
+    public void setBuildingFloors(ArrayList<BuildingFloor> buildingFloors) {
+        this.buildingFloors = buildingFloors;
+    }
+
+    public Simulation getSimulation() {
+        return simulation;
+    }
+
+    public void setSimulation(Simulation simulation) {
+        this.simulation = simulation;
     }
 }

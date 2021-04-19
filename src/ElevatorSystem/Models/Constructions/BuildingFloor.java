@@ -12,14 +12,14 @@ public class BuildingFloor implements Comparable, Observable {
     private int peopleWaiting;
     private EnumMap<Direction,Integer> requests;
     private int floorNo;
-    ArrayList<Observer> observers;
+    private ArrayList<Observer> observers;
     public BuildingFloor(int floorNo, Observer observer){
         setPeopleWaiting(0);
         this.setRequests(new EnumMap<>(Direction.class));
         this.getRequests().put(Direction.UP,0);
         this.getRequests().put(Direction.DOWN,0);
         this.setFloorNo(floorNo);
-        this.observers = new ArrayList<>();
+        this.setObservers(new ArrayList<>());
         addObserver(observer);
         System.out.println("Built floor no " + floorNo + ".");
     }
@@ -29,7 +29,7 @@ public class BuildingFloor implements Comparable, Observable {
         this.getRequests().put(Direction.UP,0);
         this.getRequests().put(Direction.DOWN,0);
         this.setFloorNo(floorNo);
-        this.observers = new ArrayList<>();
+        this.setObservers(new ArrayList<>());
         System.out.println("Built floor no " + floorNo + ".");
     }
 
@@ -64,22 +64,30 @@ public class BuildingFloor implements Comparable, Observable {
 
     @Override
     public void inform(PiceOfInformation piceOfInformation) {
-        for(Observer observer:observers)
+        for(Observer observer: getObservers())
             observer.update(piceOfInformation);
     }
 
     @Override
     public void addObserver(Observer observer) {
-        observers.add(observer);
+        getObservers().add(observer);
     }
 
     @Override
     public void removeObserver(Observer observer) {
-        observers.remove(observer);
+        getObservers().remove(observer);
     }
 
     @Override
     public String toString() {
         return "Floor no."+getFloorNo();
+    }
+
+    public ArrayList<Observer> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(ArrayList<Observer> observers) {
+        this.observers = observers;
     }
 }

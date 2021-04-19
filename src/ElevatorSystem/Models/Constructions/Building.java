@@ -27,8 +27,8 @@ public class Building {
     public  Building(String filePath){
         System.out.println("Started constructing building.");
         this.setFloorsNo((int) parseInitialValue(filePath,"floorsNo"));
-        setBuildingFloors(new ArrayList<>(floorsNo));
-        for(int i=0;i<floorsNo;i++)
+        setBuildingFloors(new ArrayList<>(getFloorsNo()));
+        for(int i = 0; i< getFloorsNo(); i++)
             getBuildingFloors().add(new BuildingFloor(i));
         System.out.println("Building with "+ getFloorsNo() +" floors created.");
 

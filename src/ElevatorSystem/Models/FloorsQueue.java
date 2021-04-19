@@ -7,32 +7,32 @@ import ElevatorSystem.Models.Physics.Direction;
 import java.util.*;
 
 public class FloorsQueue implements Queue<BuildingFloor> {
-    LinkedList<BuildingFloor> floorArrayList;
-    Elevator elevator;
+    private LinkedList<BuildingFloor> floorArrayList;
+    private Elevator elevator;
 
     public FloorsQueue(Elevator elevator){
-        floorArrayList = new LinkedList<>();
-        this.elevator=elevator;
+        setFloorArrayList(new LinkedList<>());
+        this.setElevator(elevator);
     }
 
     @Override
     public int size() {
-        return floorArrayList.size();
+        return getFloorArrayList().size();
     }
 
     @Override
     public boolean isEmpty() {
-        return floorArrayList.isEmpty();
+        return getFloorArrayList().isEmpty();
     }
 
     @Override
     public boolean contains(Object o) {
-        return floorArrayList.contains(o);
+        return getFloorArrayList().contains(o);
     }
 
     @Override
     public Iterator<BuildingFloor> iterator() {
-        return floorArrayList.iterator();
+        return getFloorArrayList().iterator();
     }
 
     @Override
@@ -47,46 +47,46 @@ public class FloorsQueue implements Queue<BuildingFloor> {
 
     @Override
     public boolean add(BuildingFloor floor) {
-        if(elevator.getDirection()== Direction.UP){
+        if(getElevator().getDirection()== Direction.UP){
             Iterator<BuildingFloor> iterator = this.iterator();
             while(iterator.hasNext()){
                 BuildingFloor goalFloor = iterator.next();
-                if(elevator.getCurrentFloor().compareTo(floor)<0){// current floor < new floor
+                if(getElevator().getCurrentFloor().compareTo(floor)<0){// current floor < new floor
                     if(floor.compareTo(goalFloor)<0){
-                        floorArrayList.add(floorArrayList.indexOf(goalFloor),goalFloor);
+                        getFloorArrayList().add(getFloorArrayList().indexOf(goalFloor),goalFloor);
                         return true;
-                    }else if (elevator.getCurrentFloor().compareTo(goalFloor)>0){// goalFloor < current floor
-                        floorArrayList.add(floorArrayList.indexOf(goalFloor),goalFloor);
+                    }else if (getElevator().getCurrentFloor().compareTo(goalFloor)>0){// goalFloor < current floor
+                        getFloorArrayList().add(getFloorArrayList().indexOf(goalFloor),goalFloor);
                         return true;
                     }else if (floor.compareTo(goalFloor)==0){
                         return true;
                     }
                 }else {// current floor > new floor
                     if (floor.compareTo(goalFloor) > 0) {
-                        floorArrayList.add(floorArrayList.indexOf(goalFloor), goalFloor);
+                        getFloorArrayList().add(getFloorArrayList().indexOf(goalFloor), goalFloor);
                         return true;
                     }else if(floor.compareTo(goalFloor) == 0){
                         return true;
                     }
                 }
             }
-        }else if (elevator.getDirection()==Direction.DOWN){
+        }else if (getElevator().getDirection()==Direction.DOWN){
             Iterator<BuildingFloor> iterator = this.iterator();
             while(iterator.hasNext()){
                 BuildingFloor goalFloor = iterator.next();
-                if(elevator.getCurrentFloor().compareTo(floor)>0){// current floor > new floor
+                if(getElevator().getCurrentFloor().compareTo(floor)>0){// current floor > new floor
                     if(floor.compareTo(goalFloor)>0){
-                        floorArrayList.add(floorArrayList.indexOf(goalFloor),goalFloor);
+                        getFloorArrayList().add(getFloorArrayList().indexOf(goalFloor),goalFloor);
                         return true;
-                    }else if (elevator.getCurrentFloor().compareTo(goalFloor)<0){// goalFloor < current floor
-                        floorArrayList.add(floorArrayList.indexOf(goalFloor),goalFloor);
+                    }else if (getElevator().getCurrentFloor().compareTo(goalFloor)<0){// goalFloor < current floor
+                        getFloorArrayList().add(getFloorArrayList().indexOf(goalFloor),goalFloor);
                         return true;
                     }else if(floor.compareTo(goalFloor) == 0){
                         return true;
                     }
                 }else {// current floor < new floor
                     if (floor.compareTo(goalFloor) < 0) {
-                        floorArrayList.add(floorArrayList.indexOf(goalFloor), goalFloor);
+                        getFloorArrayList().add(getFloorArrayList().indexOf(goalFloor), goalFloor);
                         return true;
                     }else if(floor.compareTo(goalFloor) == 0){
                         return true;
@@ -94,13 +94,13 @@ public class FloorsQueue implements Queue<BuildingFloor> {
                 }
             }
         }
-        return floorArrayList.add(floor);
+        return getFloorArrayList().add(floor);
 
     }
 
     @Override
     public boolean remove(Object o) {
-        return floorArrayList.remove(o);
+        return getFloorArrayList().remove(o);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class FloorsQueue implements Queue<BuildingFloor> {
     @Override
     public BuildingFloor poll() {
 
-        return floorArrayList.remove(0);
+        return getFloorArrayList().remove(0);
     }
 
     @Override
@@ -151,17 +151,33 @@ public class FloorsQueue implements Queue<BuildingFloor> {
 
     @Override
     public BuildingFloor peek() {
-        if(floorArrayList.size()>0)
-            return floorArrayList.get(0);
+        if(getFloorArrayList().size()>0)
+            return getFloorArrayList().get(0);
         else
             return null;
     }
 
     @Override
     public String toString() {
-        if(floorArrayList.size()>0)
-            return String.valueOf(floorArrayList.get(0).getFloorNo());
+        if(getFloorArrayList().size()>0)
+            return String.valueOf(getFloorArrayList().get(0).getFloorNo());
         else
             return "empty";
+    }
+
+    public LinkedList<BuildingFloor> getFloorArrayList() {
+        return floorArrayList;
+    }
+
+    public void setFloorArrayList(LinkedList<BuildingFloor> floorArrayList) {
+        this.floorArrayList = floorArrayList;
+    }
+
+    public Elevator getElevator() {
+        return elevator;
+    }
+
+    public void setElevator(Elevator elevator) {
+        this.elevator = elevator;
     }
 }

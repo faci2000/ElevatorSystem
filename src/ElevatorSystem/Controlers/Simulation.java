@@ -2,7 +2,6 @@ package ElevatorSystem.Controlers;
 
 import ElevatorSystem.Models.Constructions.Elevator;
 import ElevatorSystem.Models.Constructions.ElevatorSystem;
-import ElevatorSystem.Views.ElevatorView;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -11,33 +10,48 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Thread.currentThread;
 
 public class Simulation {
-    ElevatorSystem elevatorSystem;
-    ExecutorService executorService;
+    private ElevatorSystem elevatorSystem;
+    private ExecutorService executorService;
 
     public Simulation(ElevatorSystem elevatorSystem){
-        this.elevatorSystem=elevatorSystem;
+        this.setElevatorSystem(elevatorSystem);
     }
 
     public void startSimulation(){
         System.out.println("Getting elevators going | main thread id:"+currentThread().getId());
-        executorService = Executors.newFixedThreadPool(elevatorSystem.getElevators().size());
-        for(Elevator elevator:elevatorSystem.getElevators()){
-            executorService.execute(elevator.getView());
+        setExecutorService(Executors.newFixedThreadPool(getElevatorSystem().getElevators().size()));
+        for(Elevator elevator: getElevatorSystem().getElevators()){
+            getExecutorService().execute(elevator.getView());
         }
         System.out.println("All elevators are ready to serve!");
     }
 
     public  void stopSimulation(){
 
-        executorService.shutdown();
+        getExecutorService().shutdown();
         try {
-            if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
-                executorService.shutdownNow();
+            if (!getExecutorService().awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                getExecutorService().shutdownNow();
             }
         } catch (InterruptedException e) {
-            executorService.shutdownNow();
+            getExecutorService().shutdownNow();
         }
     }
 
 
+    public ElevatorSystem getElevatorSystem() {
+        return elevatorSystem;
+    }
+
+    public void setElevatorSystem(ElevatorSystem elevatorSystem) {
+        this.elevatorSystem = elevatorSystem;
+    }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
+    }
 }

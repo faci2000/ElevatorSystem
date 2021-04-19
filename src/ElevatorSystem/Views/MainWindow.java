@@ -5,23 +5,22 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class MainWindow extends Application {
-    MainWindowController mainWindowController;
+    private MainWindowController mainWindowController;
     public static void main(String[] args){
         launch(args);
     }
 
     @Override
     public void start(Stage stage) {
-        mainWindowController = new MainWindowController();
+        setMainWindowController(new MainWindowController());
         HBox hbox = new HBox();
 
-        hbox.getChildren().add(mainWindowController.getControlPanel().getView());
-        hbox.getChildren().add(mainWindowController.getBuilding().getView());
+        hbox.getChildren().add(getMainWindowController().getControlPanel().getView());
+        hbox.getChildren().add(getMainWindowController().getBuilding().getView());
 
         Scene scene = new Scene(hbox,1080,720);
         stage.setScene(scene);
@@ -31,7 +30,7 @@ public class MainWindow extends Application {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 System.out.println("Stopping simulation");
-                mainWindowController.simulation.stopSimulation();
+                getMainWindowController().getSimulation().stopSimulation();
             }
         });
     }
@@ -40,5 +39,13 @@ public class MainWindow extends Application {
     public void stop() throws Exception {
         //super.stop();
 
+    }
+
+    public MainWindowController getMainWindowController() {
+        return mainWindowController;
+    }
+
+    public void setMainWindowController(MainWindowController mainWindowController) {
+        this.mainWindowController = mainWindowController;
     }
 }

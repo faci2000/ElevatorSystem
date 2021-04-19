@@ -5,14 +5,14 @@ import ElevatorSystem.Models.Constructions.ElevatedBuilding;
 public class MainWindowController {
     private ElevatedBuilding building;
     private ControlPanelController controlPanel;
-    public Simulation simulation;
+    private Simulation simulation;
 
     public MainWindowController(){
         System.out.println("Main window controller started... \nReading json data.");
         setBuilding(new ElevatedBuilding("parameters.json"));
         setControlPanel(new ControlPanelController(this.getBuilding(),280,720));
-        simulation = new Simulation(building.getElevatorSystem());
-        simulation.startSimulation();
+        setSimulation(new Simulation(building.getElevatorSystem()));
+        getSimulation().startSimulation();
     }
 
     public ElevatedBuilding getBuilding() {
@@ -29,5 +29,13 @@ public class MainWindowController {
 
     public void setControlPanel(ControlPanelController controlPanel) {
         this.controlPanel = controlPanel;
+    }
+
+    public Simulation getSimulation() {
+        return simulation;
+    }
+
+    public void setSimulation(Simulation simulation) {
+        this.simulation = simulation;
     }
 }
