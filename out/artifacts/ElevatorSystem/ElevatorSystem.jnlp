@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="ElevatorSystem.jnlp">
+  <information>
+    <title>ElevatorSystem</title>
+    <vendor>Unknown</vendor>
+    <description>ElevatorSystem</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="ElevatorSystem.jar" size="26625" download="eager" />
+    <jar href="json-20201115.jar" size="69370" download="eager" />
+    <jar href="json-simple-1.1.jar" size="16046" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="1080" height="720" main-class="ElevatorSystem.Views.MainWindow"  name="ElevatorSystem" />
+  <update check="background"/>
+</jnlp>
